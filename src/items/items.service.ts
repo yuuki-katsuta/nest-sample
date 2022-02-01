@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { ItemStatus } from './item-status.enum';
 import { Item } from './item.model';
 
 @Injectable()
@@ -17,6 +18,13 @@ export class ItemsService {
   create(item: Item): Item {
     // contorollerから受け取ったitemsを配列に格納
     this.items.push(item);
+    return item;
+  }
+
+  //商品のstatusを更新
+  updateStatus(id: string): Item {
+    const item = this.findById(id);
+    item.status = ItemStatus.SOLD_OUT;
     return item;
   }
 }
