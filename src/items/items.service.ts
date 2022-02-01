@@ -6,8 +6,12 @@ export class ItemsService {
   //商品を保存するため
   private items: Item[] = [];
 
-  findAll() {
-    return 'this is items service';
+  findAll(): Item[] {
+    return this.items;
+  }
+
+  findById(id: string): Item {
+    return this.items.find((item) => item.id === id);
   }
 
   create(item: Item): Item {

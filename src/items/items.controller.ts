@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ItemStatus } from './item-status.enum';
 import { Item } from './item.model';
 import { ItemsService } from './items.service';
@@ -10,8 +10,15 @@ export class ItemsController {
   constructor(private readonly itemsService: ItemsService) {}
   // getメソッドで発火
   @Get()
-  finaAll() {
+  finaAll(): Item[] {
     return this.itemsService.findAll();
+  }
+
+  // パスは、items/id
+  @Get(':id') // :id とすることでidが可変のパラメータであると認識
+  //パラメータを取得するには@Paramデコレータを使用(引数はパラメータ名と同じ)
+  findById(@Param('id') id: string): Item {
+    return this.itemsService.findById(id);
   }
 
   @Post()
