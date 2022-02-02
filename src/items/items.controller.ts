@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ItemStatus } from './item-status.enum';
+import { CreateItemDto } from './dto/create-item.dto';
 import { Item } from './item.model';
 import { ItemsService } from './items.service';
 
@@ -33,20 +33,21 @@ export class ItemsController {
   //リクエストボディーから商品パラメータ取得=>@Bodyデコレータの使用
   // idはリクエストボディのキー。それをstring型の変数idに格納
   create(
-    @Body('id') id: string,
-    @Body('name') name: string,
-    @Body('price') price: number,
-    @Body('description') description: string,
+    // @Body('id') id: string,
+    // @Body('name') name: string,
+    // @Body('price') price: number,
+    // @Body('description') description: string,
+    @Body() creatItemDto: CreateItemDto, //パラメータをまとめて受け取ることができる
   ): Item {
     //リクエストボディの値からitemを生成
-    const item: Item = {
-      id,
-      name,
-      price,
-      description,
-      status: ItemStatus.ON_SALE,
-    };
-    return this.itemsService.create(item);
+    // const item: Item = {
+    //   id,
+    //   name,
+    //   price,
+    //   description,
+    //   status: ItemStatus.ON_SALE,
+    // };
+    return this.itemsService.create(creatItemDto);
   }
 
   @Patch(':id') // items/id

@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { CreateItemDto } from './dto/create-item.dto';
 import { ItemStatus } from './item-status.enum';
 import { Item } from './item.model';
 
@@ -15,8 +16,12 @@ export class ItemsService {
     return this.items.find((item) => item.id === id);
   }
 
-  create(item: Item): Item {
-    // contorollerから受け取ったitemsを配列に格納
+  create(creatItemDto: CreateItemDto): Item {
+    // item作成
+    const item: Item = {
+      ...creatItemDto,
+      status: ItemStatus.ON_SALE,
+    };
     this.items.push(item);
     return item;
   }
